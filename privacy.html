@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隱私權保護聲明 | DL Studio 小德數位樂活工作室</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="DL Studio 小德數位樂活工作室之個人資料收集與隱私權保護聲明。我們極為重視您的隱私，並致力於保護您在與我們聯繫時所提供的個人資料。">
+    <meta name="robots" content="noindex, follow"> <!-- Policies usually don't need to compete in SEO but should be accessible -->
+    
+    <!-- Google Fonts: Outfit (headings), Inter (body), Noto Sans TC (traditional Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Shared Design System with dlstudio.html */
+        :root {
+            --bg-deep: #060913;
+            --bg-card: rgba(13, 20, 38, 0.45);
+            --bg-card-hover: rgba(22, 33, 62, 0.65);
+            --primary: #8b5cf6;
+            --primary-glow: rgba(139, 92, 246, 0.15);
+            --secondary: #00f0ff;
+            --secondary-glow: rgba(0, 240, 255, 0.15);
+            --accent: #f472b6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dark: #64748b;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(0, 240, 255, 0.3);
+            --font-display: 'Outfit', 'Noto Sans TC', sans-serif;
+            --font-body: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Glowing Background elements */
+        .glowing-bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .glow-sphere {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.12;
+            mix-blend-mode: screen;
+        }
+
+        .glow-1 {
+            top: -10%;
+            left: 15%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+        }
+
+        .glow-2 {
+            bottom: -15%;
+            right: 10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+        }
+
+        /* Navigation Bar */
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            background: rgba(6, 9, 19, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1.35rem;
+            font-weight: 800;
+            font-family: var(--font-display);
+        }
+
+        .logo-symbol {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+
+        .logo-text span {
+            font-weight: 300;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 0.5rem;
+        }
+
+        .back-btn {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--secondary);
+        }
+
+        /* Content Container */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .policy-card {
+            padding: 4rem 3.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 640px) {
+            .policy-card {
+                padding: 2.5rem 1.5rem;
+            }
+            .content-wrapper {
+                margin: 2rem auto;
+            }
+        }
+
+        .policy-header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .policy-badge {
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        /* Policy Sections */
+        .policy-section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-left: 3px solid var(--primary);
+            padding-left: 0.75rem;
+        }
+
+        h2 i {
+            color: var(--secondary);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .alert-box {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .alert-box p {
+            margin-bottom: 0;
+            color: #d8b4fe;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Details inside policy */
+        .contact-info {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .contact-item i {
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(4, 6, 12, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            text-align: center;
+            margin-bottom: 0;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Decorative glows -->
+    <div class="glowing-bg-elements">
+        <div class="glow-sphere glow-1"></div>
+        <div class="glow-sphere glow-2"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="dlstudio.html" class="logo">
+                <div class="logo-symbol">DL</div>
+                <div class="logo-text">DL Studio <span>小德數位樂活</span></div>
+            </a>
+            <a href="dlstudio.html" class="back-btn">
+                <i data-lucide="arrow-left" style="width:18px;height:18px;"></i>
+                返回首頁
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <div class="policy-card glass-panel">
+            <div class="policy-header">
+                <div class="policy-badge">Privacy Policy</div>
+                <h1>個人資料收集與隱私權保護聲明</h1>
+                <div class="last-updated">最後更新日期：2026 年 5 月 30 日</div>
+            </div>
+
+            <!-- Intro -->
+            <div class="policy-section">
+                <p>
+                    <strong>DL Studio 小德數位樂活工作室</strong>（以下簡稱「本工作室」）極為重視您的隱私權。為了讓您能夠安心使用本工作室網站所提供的各項服務與資訊，特此說明本工作室的個人資料收集與隱私權保護政策，以保障您的權益。請您詳閱下列內容：
+                </p>
+            </div>
+
+            <!-- Section 1 -->
+            <div class="policy-section">
+                <h2><i data-lucide="shield-check" style="width:20px;height:20px;"></i>一、 隱私權保護聲明之適用範圍</h2>
+                <p>
+                    本隱私權保護聲明內容，適用於您在使用本工作室網站服務時，所涉及的個人資料收集、處理、利用與保護。本聲明不適用於本工作室網站以外的連結網站，亦不適用於非本工作室所委託或參與管理的人員。
+                </p>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="policy-section">
+                <h2><i data-lucide="database" style="width:20px;height:20px;"></i>二、 個人資料之收集目的、類別及方式</h2>
+                <p>
+                    當您造訪本工作室網站或使用網站所提供之「聯絡合作」、「發送合作諮詢」等功能時，我們將視服務性質，請您提供必要之個人資料，並在該特定目的範圍內處理及利用您的個人資料。
+                </p>
+                <ul>
+                    <li><strong>收集目的</strong>：技術諮詢、專案評估、合作洽談、客戶管理與服務回覆。</li>
+                    <li><strong>收集方式</strong>：由您於本網站之聯絡表單中主動輸入填寫。</li>
+                    <li><strong>收集之個人資料類別</strong>：
+                        <ul>
+                            <li><strong>識別類</strong>：姓名、公司名稱、電子郵件信箱、電話號碼。</li>
+                            <li><strong>其他</strong>：您於洽談主旨及專案細節欄位中自行輸入的任何個人或商業資訊。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="policy-section">
+                <h2><i data-lucide="clock" style="width:20px;height:20px;"></i>三、 個人資料之利用期間、地區、對象及方式</h2>
+                <p>
+                    本工作室將嚴格遵守個人資料保護法，在收集目的之存續期間內合理使用您的資料。
+                </p>
+                <ul>
+                    <li><strong>期間</strong>：自您填寫聯絡表單起，至完成該次合作洽談或諮詢服務、或您請求本工作室刪除資料為止。</li>
+                    <li><strong>地區</strong>：台灣台北（本工作室所在地）及業務推展所必須之地區。</li>
+                    <li><strong>對象</strong>：僅限於本工作室內部（創辦人 Derek Lin 及專案管理必要之人員）。非經您的同意或法令規定，我們絕不將您的個人資料提供給任何第三方，或移作其他目的使用。</li>
+                    <li><strong>方式</strong>：以電子郵件、電話等電子通訊方式與您聯繫，進行專案洽談與技術評估。</li>
+                </ul>
+            </div>
+
+            <!-- PDPA Alert -->
+            <div class="alert-box">
+                <p>
+                    <strong>【個人資料保護法告知事項】</strong><br>
+                    依據個人資料保護法第 3 條規定，您就本工作室所保有的個人資料，享有查詢、請求閱覽、請求製給複製本、請求補充或更正、請求停止收集、處理或利用，以及請求刪除之權利。如欲行使上述權利，請透過本聲明所列之聯絡管道與我們聯繫。
+                </p>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="policy-section">
+                <h2><i data-lucide="lock" style="width:20px;height:20px;"></i>四、 個人資料之保護與安全安全維護</h2>
+                <p>
+                    本工作室主機及儲存設備皆設有嚴密的防火牆、防毒系統等相關資訊安全設備，以及必要的安全防護措施。我們採取嚴格的存取權限控管，僅有獲授權的人員才能接觸您的個人資料，確保您的個資受到最完善的保護。
+                </p>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="policy-section">
+                <h2><i data-lucide="cookie" style="width:20px;height:20px;"></i>五、 Cookie 之使用</h2>
+                <p>
+                    為了提供您最佳的網站體驗，本工作室網站可能會在您的電腦中放置並取用我們的 Cookie。若您不願接受 Cookie 的寫入，您可在您使用的瀏覽器功能項中設定隱私權等級為高，即可拒絕 Cookie 的寫入，但可能會導至網站某些功能無法正常執行。
+                </p>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="policy-section">
+                <h2><i data-lucide="refresh-cw" style="width:20px;height:20px;"></i>六、 隱私權保護聲明之修改</h2>
+                <p>
+                    本工作室之隱私權保護聲明將因應技術發展、相關法令修訂或實際業務需求進行適時修正，修正後的條款將即時刊登於本網站上，不另行個別通知。建議您定期閱讀本聲明以掌握最新內容。
+                </p>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="policy-section">
+                <h2><i data-lucide="phone-call" style="width:20px;height:20px;"></i>七、 隱私權諮詢管道</h2>
+                <p>
+                    若您對本工作室的隱私權聲明有任何疑問，或欲行使個人資料保護法賦予之權利（如查詢或請求刪除個資），歡迎透過以下管道與我們聯繫：
+                </p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i data-lucide="user" style="width:18px;height:18px;"></i>
+                        <span>負責人：Derek Lin</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                        <span>derek@dlin.biz</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="phone" style="width:18px;height:18px;"></i>
+                        <span>+886-988-762-108</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
+                        <span>台灣台北</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 DL Studio 小德數位樂活工作室. All rights reserved. Powered by Derek Lin.</p>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

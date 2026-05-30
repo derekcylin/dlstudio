@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DL Studio 小德數位樂活工作室 | 網路通訊、軟體工程與深度學習研發</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="DL Studio 由 Derek Lin 創立，是一間以技術為核心驅動力的軟體研發工作室。專注於網路通訊技術、軟體工程、深度學習應用與物聯網專案開發，致力於將複雜的工程挑戰轉化為可靠、可運行、可擴展的技術解決方案。">
+    <meta name="keywords" content="DL Studio, 小德數位樂活工作室, Derek Lin, 網路通訊, 軟體工程, 深度學習, AI模型, 物聯網, IoT, 軟體研發, 分散式系統">
+    <meta name="author" content="Derek Lin / DL Studio">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DL Studio 小德數位樂活工作室 | 網路通訊、軟體工程與深度學習研發">
+    <meta property="og:description" content="以紮實的工程背景為基礎，打造高品質、可擴展、具實際價值的技術解決方案。專注於網路通訊、軟體工程、深度學習與物聯網專案開發。">
+    <meta property="og:url" content="https://dlstudio.tech"> <!-- Placeholder domain, easily customizable -->
+    
+    <!-- Google Fonts: Outfit (headings), Inter (body), Noto Sans TC (traditional Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Modern CSS Reset & Variables */
+        :root {
+            --bg-deep: #060913;
+            --bg-card: rgba(13, 20, 38, 0.45);
+            --bg-card-hover: rgba(22, 33, 62, 0.65);
+            --primary: #8b5cf6; /* Violet */
+            --primary-glow: rgba(139, 92, 246, 0.15);
+            --secondary: #00f0ff; /* Cyan */
+            --secondary-glow: rgba(0, 240, 255, 0.15);
+            --accent: #f472b6; /* Pink */
+            --accent-glow: rgba(244, 114, 182, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dark: #64748b;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(0, 240, 255, 0.3);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-display: 'Outfit', 'Noto Sans TC', sans-serif;
+            --font-body: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Decorative Background Gradients */
+        .glowing-bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .glow-sphere {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            mix-blend-mode: screen;
+        }
+
+        .glow-1 {
+            top: -10%;
+            left: 15%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            animation: floatGlow 25s infinite alternate ease-in-out;
+        }
+
+        .glow-2 {
+            bottom: -15%;
+            right: 10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            animation: floatGlow 30s infinite alternate-reverse ease-in-out;
+        }
+
+        .glow-3 {
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.08;
+            animation: floatGlow 20s infinite alternate ease-in-out 5s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(4%, 6%) scale(1.1); }
+            100% { transform: translate(-4%, -3%) scale(0.9); }
+        }
+
+        /* Neural Network Canvas Background */
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: auto;
+            opacity: 0.65;
+        }
+
+        /* Typography Utilities */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa 0%, #00f0ff 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glassmorphism Containers */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            transition: border var(--transition-normal), background var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .glass-panel:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+        }
+
+        /* Interactive Custom Cursor Sparkles */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        /* Navigation Bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem 2rem;
+            transition: padding var(--transition-normal), background var(--transition-normal), backdrop-filter var(--transition-normal);
+        }
+
+        header.scrolled {
+            padding: 1rem 2rem;
+            background: rgba(6, 9, 19, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: var(--font-display);
+        }
+
+        .logo-symbol {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.2rem;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .logo-symbol::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(4px);
+        }
+
+        .logo-text span {
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 0.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width var(--transition-fast);
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: var(--text-main);
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--secondary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .hero-badge i {
+            animation: pulseIcon 2s infinite;
+        }
+
+        @keyframes pulseIcon {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000;
+            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.3);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 35px rgba(0, 240, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        /* Scroll Down Indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+
+        /* Section Global Settings */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header {
+            max-width: 650px;
+            margin-bottom: 4.5rem;
+        }
+
+        .section-badge {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--secondary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-badge::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), transparent);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        /* About Section (與創辦人) */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .about-text pstrong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: var(--font-display);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Terminal Mockup */
+        .terminal-window {
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        .terminal-title {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            font-family: monospace;
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 1.5rem;
+            background: rgba(4, 6, 12, 0.95);
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #38bdf8;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.6rem;
+            opacity: 0;
+            transform: translateY(5px);
+            animation: showLine 0.3s forwards ease;
+        }
+
+        .terminal-prefix {
+            color: #a78bfa;
+            user-select: none;
+            margin-right: 0.5rem;
+        }
+
+        .terminal-success {
+            color: #4ade80;
+        }
+
+        .terminal-info {
+            color: #e2e8f0;
+        }
+
+        @keyframes showLine {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Expertise Section (專業領域 Grid) */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .expertise-card {
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Custom glow on card hover */
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.04), transparent 40%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            pointer-events: none;
+        }
+
+        .expertise-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--border);
+            color: var(--secondary);
+            position: relative;
+            transition: transform var(--transition-normal), color var(--transition-normal);
+        }
+
+        .expertise-card:hover .card-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+            color: var(--text-main);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        /* SVG inner symbol fallback if needed, but Lucide handles standard */
+        .expertise-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            transition: color var(--transition-fast);
+        }
+
+        .expertise-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Specific card color themes */
+        .card-1 { --hover-color: var(--secondary); }
+        .card-2 { --hover-color: var(--primary); }
+        .card-3 { --hover-color: var(--accent); }
+        .card-4 { --hover-color: #10b981; }
+
+        .expertise-card:hover h3 {
+            color: var(--hover-color);
+        }
+
+        /* Mission Section */
+        .mission {
+            text-align: center;
+        }
+
+        .mission-panel {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mission-panel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(0, 240, 255, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .quote-icon {
+            color: var(--primary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .mission-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1.6;
+            color: var(--text-main);
+            font-weight: 700;
+            max-width: 800px;
+        }
+
+        .mission-tag {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Dynamic Contact Section & Modal */
+        .contact-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            width: 100%;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-info-grid {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            transition: color var(--transition-fast);
+        }
+
+        .contact-info-item:hover {
+            color: var(--secondary);
+        }
+
+        .contact-info-item i {
+            color: var(--primary);
+        }
+
+        /* Form Modal (Popup) */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            display: grid;
+            place-items: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 6, 12, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 550px;
+            padding: 3rem;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 240, 255, 0.1);
+            transform: scale(0.95);
+            transition: transform var(--transition-normal);
+        }
+
+        .modal.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
+            background: rgba(4, 6, 12, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-logo-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .footer-logo-desc {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            width: 100%;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 2rem;
+        }
+
+        /* Scroll Animation Triggers */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay utilities */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+
+    <!-- Decorative glows -->
+    <div class="glowing-bg-elements">
+        <div class="glow-sphere glow-1"></div>
+        <div class="glow-sphere glow-2"></div>
+        <div class="glow-sphere glow-3"></div>
+    </div>
+
+    <!-- Reactive Particles Background representing Networks & Neural Networks -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- Custom Sparkle Mouse Cursor Glow -->
+    <div class="cursor-glow" id="mouse-glow"></div>
+
+    <!-- Header Navigation -->
+    <header id="header">
+        <div class="nav-container">
+            <a href="#" class="logo" id="nav-logo">
+                <div class="logo-symbol">DL</div>
+                <div class="logo-text">DL Studio <span>小德數位樂活</span></div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#about" id="link-about">關於創辦人</a></li>
+                    <li><a href="#expertise" id="link-expertise">專業領域</a></li>
+                    <li><a href="#mission" id="link-mission">使命宣言</a></li>
+                    <li>
+                        <button class="nav-btn" onclick="toggleModal(true)" id="btn-header-contact">
+                            <i data-lucide="message-square" style="width:16px;height:16px;"></i>
+                            聯絡合作
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="hero-badge reveal">
+                    <i data-lucide="sparkles" style="width:16px;height:16px;"></i>
+                    以卓越技術核心，驅動數位未來
+                </div>
+                <h1 class="reveal delay-1">
+                    <span class="gradient-text">DL Studio</span><br>小德數位樂活工作室
+                </h1>
+                <p class="hero-tagline reveal delay-2">
+                    專注於<strong>網路通訊</strong>、<strong>軟體工程</strong>與<strong>深度學習應用</strong>的頂尖軟體研發工作室
+                </p>
+                <div class="hero-cta reveal delay-3">
+                    <a href="#expertise" class="btn btn-primary" id="btn-explore">
+                        探索專業領域
+                        <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+                    </a>
+                    <button class="btn btn-secondary" onclick="toggleModal(true)" id="btn-hero-contact">
+                        聯絡我們
+                    </button>
+                </div>
+            </div>
+            
+            <a href="#about" class="scroll-down" id="scroll-arrow">
+                <span>SCROLL DOWN</span>
+                <i data-lucide="chevron-down" style="width:20px;height:20px;"></i>
+            </a>
+        </section>
+
+        <!-- About Section (關於創辦人) -->
+        <section id="about">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <div class="section-badge">ABOUT DL STUDIO</div>
+                    <h2 class="section-title">以技術為驅動核心</h2>
+                    <p>
+                        <strong>DL Studio 由 Derek Lin 創立</strong>，是一間以技術為核心驅動力的軟體研發工作室。
+                    </p>
+                    <p>
+                        我們以紮實的工程背景為基礎，致力於打造高品質、可擴展、具實際價值的技術解決方案，為企業與合作夥伴突破技術瓶頸。
+                    </p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">4+</div>
+                            <div class="stat-label">專業核心領域</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">工程化高品質</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">AI</div>
+                            <div class="stat-label">深度落地整合</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Terminal Visualizer -->
+                <div class="terminal-window glass-panel reveal delay-2" id="studio-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="terminal-dot dot-red"></div>
+                            <div class="terminal-dot dot-yellow"></div>
+                            <div class="terminal-dot dot-green"></div>
+                        </div>
+                        <div class="terminal-title">dl_studio_kernel.sh</div>
+                        <div style="width: 40px;"></div>
+                    </div>
+                    <div class="terminal-body" id="terminal-content">
+                        <!-- Typewriter code injected here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section (專業領域) -->
+        <section id="expertise">
+            <div class="section-header reveal">
+                <div class="section-badge">Expertise & Skills</div>
+                <h2 class="section-title">DL Studio 專業領域涵蓋</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 300;">
+                    以工程化思維與領先技術，將多元化的複雜挑戰轉化為模組化、易維護、可高度擴展的優質產品。
+                </p>
+            </div>
+
+            <div class="expertise-grid">
+                <!-- Card 1: Network -->
+                <div class="expertise-card glass-panel card-1 reveal" id="exp-network">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="network" style="width:28px;height:28px;"></i>
+                    </div>
+                    <h3>網路通訊技術</h3>
+                    <p>
+                        從通訊協定、分散式系統到高效能網路架構的設計與實作。具備卓越的高併發、低延遲傳輸處理能力，確保數據傳遞安全且穩定。
+                    </p>
+                </div>
+
+                <!-- Card 2: Software Engineering -->
+                <div class="expertise-card glass-panel card-2 reveal delay-1" id="exp-software">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="code-2" style="width:28px;height:28px;"></i>
+                    </div>
+                    <h3>軟體工程</h3>
+                    <p>
+                        以嚴謹的工程化思維打造穩定、模組化、易維護的系統與開發工具。落實程式碼重構、單元測試、自動化部署等最佳軟體生命週期管理。
+                    </p>
+                </div>
+
+                <!-- Card 3: Deep Learning -->
+                <div class="expertise-card glass-panel card-3 reveal" id="exp-ai">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="brain" style="width:28px;height:28px;"></i>
+                    </div>
+                    <h3>深度學習應用</h3>
+                    <p>
+                        深度整合 AI 尖端模型、大數據資料處理流程與高效能推論系統。提供從模型微調、優化到實際落地應用的全方位智慧化解決方案。
+                    </p>
+                </div>
+
+                <!-- Card 4: IoT Project Development -->
+                <div class="expertise-card glass-panel card-4 reveal delay-1" id="exp-iot">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="cpu" style="width:28px;height:28px;"></i>
+                    </div>
+                    <h3>物聯網專案開發</h3>
+                    <p>
+                        橫跨從邊緣硬體感測器整合、Edge運算，到雲端平台大數據串接，提供極具韌性且低功耗的完整端到端 IoT 智慧物聯網解決方案。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission" class="mission">
+            <div class="mission-panel glass-panel reveal" id="mission-box">
+                <div class="quote-icon">
+                    <i data-lucide="quote" style="width:48px;height:48px;"></i>
+                </div>
+                <div class="section-badge" style="justify-content: center;">STUDIO MISSION</div>
+                <h2 class="mission-title">
+                    「以技術創造價值，將複雜的工程挑戰轉化為可靠、可運行、可擴展的產品與服務。」
+                </h2>
+                <div class="mission-tag">
+                    — DL Studio 的技術使命
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-cta reveal">
+                <div class="section-badge">Get in Touch</div>
+                <h2 class="section-title">與我們展開合作</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; font-weight: 300;">
+                    不論您有網路通訊系統設計、AI 模型應用落地、物聯網整合或高品質軟體架構需求，DL Studio 都是您最可靠的技術研發夥伴。
+                </p>
+                
+                <div class="contact-card glass-panel" id="contact-details">
+                    <div class="contact-info-grid">
+                        <div class="contact-info-item">
+                            <i data-lucide="user"></i>
+                            <span>創辦人：Derek Lin</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <i data-lucide="mail"></i>
+                            <span>derek@dlin.biz</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <i data-lucide="phone"></i>
+                            <span>+886-988-762-108</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <i data-lucide="map-pin"></i>
+                            <span>台灣台北</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="toggleModal(true)" id="btn-footer-contact">
+                        發送合作諮詢
+                        <i data-lucide="send" style="width:16px;height:16px;"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="footer-logo-title">DL Studio</div>
+                <div class="footer-logo-desc">小德數位樂活工作室 | 技術驅動的研發工坊</div>
+            </div>
+            <div class="footer-links">
+                <a href="#about">關於我們</a>
+                <a href="#expertise">專業領域</a>
+                <a href="#mission">工作室使命</a>
+                <a href="privacy.html" target="_blank">隱私權政策</a>
+            </div>
+            <div class="copyright">
+                &copy; <span id="current-year">2026</span> DL Studio 小德數位樂活工作室. All rights reserved. Powered by Derek Lin.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Contact Modal -->
+    <div class="modal" id="contact-modal">
+        <div class="modal-overlay" onclick="toggleModal(false)"></div>
+        <div class="modal-container glass-panel">
+            <button class="modal-close" onclick="toggleModal(false)" id="btn-close-modal">
+                <i data-lucide="x" style="width:24px;height:24px;"></i>
+            </button>
+            <div class="modal-header">
+                <h3>開啟您的專案計劃</h3>
+                <p>填寫以下資訊，創辦人 Derek Lin 將會親自與您聯繫。</p>
+            </div>
+            <form onsubmit="handleContactSubmit(event)" id="contact-form">
+                <div class="form-group">
+                    <label class="form-label" for="form-name">您的姓名 / 公司名稱</label>
+                    <input type="text" id="form-name" class="form-control" placeholder="例如：林先生 / 數位科技股份有限公司" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-email">電子郵件信箱</label>
+                    <input type="email" id="form-email" class="form-control" placeholder="derek@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-subject">洽談主題</label>
+                    <select id="form-subject" class="form-control">
+                        <option value="network">網路通訊技術研發</option>
+                        <option value="software">軟體工程與工具開發</option>
+                        <option value="ai">深度學習/AI模型應用</option>
+                        <option value="iot">物聯網(IoT)整合開發</option>
+                        <option value="other">其他技術合作開發</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-message">專案細節或訊息</label>
+                    <textarea id="form-message" class="form-control" placeholder="請簡述您的需求、預期時程或技術痛點..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-submit" id="btn-submit-form">
+                    送出合作洽談
+                    <i data-lucide="check" style="width:16px;height:16px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Dynamically set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 1. Particle Background System
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 160 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.radius = Math.random() * 2.5 + 1;
+                // Color variation between primary, secondary, and soft neutral
+                const colors = ['rgba(139, 92, 246, 0.45)', 'rgba(0, 240, 255, 0.45)', 'rgba(255, 255, 255, 0.25)'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Wall bounds
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                // Mouse interaction (gentle repulsion)
+                if (mouse.x !== null && mouse.y !== null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        // Calculate force vector
+                        this.x -= (dx / dist) * force * 1.5;
+                        this.y -= (dy / dist) * force * 1.5;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            let particleDensity = (canvas.width * canvas.height) / 9500;
+            particleDensity = Math.min(particleDensity, 160); // Cap at 160 particles
+            for (let i = 0; i < particleDensity; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+        window.addEventListener('resize', initParticles);
+
+        // Track Mouse
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            
+            // Custom cursor glow pos
+            const glow = document.getElementById('mouse-glow');
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Animation Loop
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw connecting lines (neural net look)
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 125) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        // Alpha fades based on distance
+                        const alpha = ((125 - dist) / 125) * 0.14;
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+                        ctx.lineWidth = 0.75;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // 2. Interactive Terminal Mockup Typewriter Animation
+        const terminalContent = document.getElementById('terminal-content');
+        const terminalLines = [
+            { type: 'command', text: 'dlstudio --init' },
+            { type: 'info', text: 'Initializing DL Studio core services...' },
+            { type: 'success', text: '✔ Network Communications Interface connected.' },
+            { type: 'success', text: '✔ Software Engineering CI/CD pipelines verified.' },
+            { type: 'success', text: '✔ Deep Learning inference cluster running.' },
+            { type: 'success', text: '✔ IoT telemetry data-links initialized.' },
+            { type: 'info', text: 'Connecting Derek Lin (Founder) to terminal...' },
+            { type: 'success', text: '✔ System loaded. Ready to build high-performance products!' }
+        ];
+
+        let lineIdx = 0;
+
+        function runTerminalTypewriter() {
+            if (lineIdx < terminalLines.length) {
+                const line = terminalLines[lineIdx];
+                const p = document.createElement('div');
+                p.className = 'terminal-line';
+
+                if (line.type === 'command') {
+                    p.innerHTML = `<span class="terminal-prefix">&gt;</span><span class="terminal-info">${line.text}</span>`;
+                } else if (line.type === 'success') {
+                    p.innerHTML = `<span class="terminal-success">${line.text}</span>`;
+                } else {
+                    p.innerHTML = `<span class="terminal-info">${line.text}</span>`;
+                }
+
+                terminalContent.appendChild(p);
+                lineIdx++;
+                
+                // Auto-scroll terminal
+                terminalContent.scrollTop = terminalContent.scrollHeight;
+
+                // Random delay between lines for typing feel
+                const delay = line.type === 'command' ? 800 : Math.random() * 400 + 400;
+                setTimeout(runTerminalTypewriter, delay);
+            } else {
+                // Loop: clear terminal and restart after 6 seconds
+                setTimeout(() => {
+                    terminalContent.innerHTML = '';
+                    lineIdx = 0;
+                    runTerminalTypewriter();
+                }, 6000);
+            }
+        }
+        // Start terminal typewriter
+        runTerminalTypewriter();
+
+        // 3. Header Scrolled Styling
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 4. Reveal Animations on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        function checkReveal() {
+            const triggerBottom = window.innerHeight * 0.85;
+            revealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < triggerBottom) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkReveal);
+        // Run once on load to reveal elements currently on screen
+        checkReveal();
+
+        // 5. Dynamic Hover Glow Effect for Cards
+        const cards = document.querySelectorAll('.expertise-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // 6. Contact Modal Open/Close
+        const modal = document.getElementById('contact-modal');
+        function toggleModal(show) {
+            if (show) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Stop page scrolling
+            } else {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+
+        // 7. Contact Form Submission Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            // Get values
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const subject = document.getElementById('form-subject').value;
+            const message = document.getElementById('form-message').value;
+
+            // Simple visual validation
+            const btn = document.getElementById('btn-submit-form');
+            const originalHTML = btn.innerHTML;
+            
+            btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px;"></i> 發送中...`;
+            lucide.createIcons(); // render loading icon
+
+            setTimeout(() => {
+                alert(`感謝您的聯繫，${name}！您的合作洽談已經送出。創辦人 Derek Lin 將儘速回覆至您的信箱：${email}。`);
+                
+                // Clear form & close
+                document.getElementById('contact-form').reset();
+                toggleModal(false);
+                
+                // Restore button
+                btn.innerHTML = originalHTML;
+                lucide.createIcons();
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
